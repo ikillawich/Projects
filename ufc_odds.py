@@ -1,46 +1,12 @@
-#The uncommented code is the code found in ufc_odds.py, the rest was written as I was figuring out beautifulsoup.
-
-import bs4 as bs
-import urllib.request
 import pandas as pd
 
-#sauce = urllib.request.urlopen('http://www.foxsports.com/ufc/odds').read()
-#soup = bs.BeautifulSoup(sauce, 'lxml')
-
-#collects all data within x tags
-#print(soup.find_all('x'))
-
-#outputs all 'p' tag data one after another
-#for paragraph in soup.find_all('p'):
-#    print(paragraph.text)
-
-#collects just the text on webpage
-#print(soup.get_text())
-
-#for url in soup.find_all('a'):
-#    print(url.get('href'))
-#table = soup.find('table')
-#table_rows = table.find_all('tr')
-
-#for tr in table_rows:
-#    td = tr.find_all('td')
-#    row = [i.text for i in td]
-#    print(row)
-
-#The code for the actual scraping function begins here.
-
-dfs = pd.read_html('http://www.foxsports.com/ufc/odds')
+dfs = pd.read_html('http://www.foxsports.com/ufc/odds') #reads the html tables into a list of dataframe objects
 
 fight = dict()
 for x in range(0, len(dfs)):
     fight[x] = dfs[x][['Fighters', 'Opening Moneyline', 'Current Moneyline']][0:1] #fight is the dictionary that contains the fighters and the odds
 
-#############################Reference#####################################
-#fight1 = dfs[0]                                                          //
-#fight2 = dfs[1][['Fighters', 'Opening Moneyline', 'Current Moneyline']]  //
-#odds12 = dfs[0][['Opening Moneyline', 'Current Moneyline']][0:3]          //
-#fighter1 = fight1['Fighters']                                            //
-###########################################################################
+
 
 odds = dict()
 for x in range(0, len(dfs)):            #loops through each fight
@@ -89,19 +55,5 @@ def fighters(n):                        #gives the fighters of fight n
     return(fighter1 + " vs. " + fighter2)
 
 
-
-
 def odds(n):
         print("The odds for the " + fighters(n) + " fight is " + fight[n]['Opening Moneyline'][0])
-
-
-# for x in range(0, len(dfs)):
-#     print(fight[x])
-
-
-#df = pd.read_html('http://www.foxsports.com/ufc/odds')
-#set1 = df[0]
-#fighter1 = set1.iloc[0:, 1:2]
-#print(fighter1)
-#odds1 = set1.iloc[0:, 3:]
-#print(odds1)
