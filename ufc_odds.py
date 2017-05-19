@@ -1,6 +1,14 @@
 import pandas as pd
+import bs4 as bs
+import urllib.request
 
-dfs = pd.read_html('http://www.foxsports.com/ufc/odds') #reads the html tables into a list of dataframe objects
+url = "http://www.foxsports.com/ufc/odds"
+dfs = pd.read_html(url) #reads the html tables into a list of dataframe objects
+sauce = urllib.request.urlopen(url).read()
+soup = bs.BeautifulSoup(sauce, 'lxml')
+
+date = soup.fight_all("span", {"class":"wisbb_fightDate"})[0].text
+print(date)
 
 fight = dict()
 for x in range(0, len(dfs)):
