@@ -7,7 +7,7 @@ dfs = pd.read_html(url) #reads the html tables into a list of dataframe objects
 sauce = urllib.request.urlopen(url).read()
 soup = bs.BeautifulSoup(sauce, 'lxml')
 
-date = soup.fight_all("span", {"class":"wisbb_fightDate"})[0].text
+date = soup.find_all("span", {"class":"wisbb_fightDate"})[0].text
 print(date)
 
 fight = dict()
