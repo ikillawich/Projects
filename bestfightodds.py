@@ -12,6 +12,8 @@ soup = bs.BeautifulSoup(res, 'lxml')
 
 div = soup.find_all('div', {'class':'table-header'})
 children = div[0].findChildren()
+
+#Returns event and date
 x = 0
 while x < len(div):
     children = div[x].findChildren()
@@ -20,12 +22,12 @@ while x < len(div):
     x += 1
 
 fighters = soup.find_all('tr', {'class':'even'})
-    for n in fighters:
+for n in fighters:
     x = n.find_all('th', {"scope":"row"})
     for n in x:
         print(n.text)
 
-for x range(0,13):
+for x in range(0,13):
     n = x*4
-    print(fighters[n])
+    print(fighters[n].text)
     print(fighters[n+1].text)
